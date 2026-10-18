@@ -1,8 +1,8 @@
 {
  "user": "ikeraugusto2412-source",
- "total": 35,
- "current_streak": 14,
- "longest_streak": 14,
+ "total": 36,
+ "current_streak": 15,
+ "longest_streak": 15,
  "best_day": {
   "date": "2026-04-09",
   "count": 4
@@ -20,44 +20,9 @@
   "2026-07": 0,
   "2026-08": 0,
   "2026-09": 3,
-  "2026-10": 20
+  "2026-10": 21
  },
  "days": [
-  {
-   "date": "2025-10-12",
-   "level": 0,
-   "count": 0
-  },
-  {
-   "date": "2025-10-13",
-   "level": 0,
-   "count": 0
-  },
-  {
-   "date": "2025-10-14",
-   "level": 0,
-   "count": 0
-  },
-  {
-   "date": "2025-10-15",
-   "level": 0,
-   "count": 0
-  },
-  {
-   "date": "2025-10-16",
-   "level": 0,
-   "count": 0
-  },
-  {
-   "date": "2025-10-17",
-   "level": 0,
-   "count": 0
-  },
-  {
-   "date": "2025-10-18",
-   "level": 0,
-   "count": 0
-  },
   {
    "date": "2025-10-19",
    "level": 0,
@@ -1875,6 +1840,11 @@
   },
   {
    "date": "2026-10-17",
+   "level": 2,
+   "count": 1
+  },
+  {
+   "date": "2026-10-18",
    "level": 0,
    "count": 0
   }
