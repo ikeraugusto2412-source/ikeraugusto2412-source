@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import time
 from datetime import date
 from pathlib import Path
 
@@ -13,9 +14,30 @@ USER = os.environ.get("GH_USER", "ikeraugusto2412-source")
 URL = f"https://github.com/users/{USER}/contributions"
 
 
+RETRIES = 4
+RETRY_STATUS = {429, 500, 502, 503, 504}
+
+
+def get_with_retries() -> requests.Response:
+    """GitHub a veces responde 5xx o se cuelga: reintenta con espera creciente."""
+    for attempt in range(1, RETRIES + 1):
+        try:
+            resp = requests.get(URL, headers={"User-Agent": "profile-readme-heatmap"}, timeout=30)
+            if resp.status_code not in RETRY_STATUS:
+                resp.raise_for_status()
+                return resp
+            error = f"HTTP {resp.status_code}"
+        except (requests.ConnectionError, requests.Timeout) as exc:
+            error = type(exc).__name__
+        if attempt == RETRIES:
+            raise SystemExit(f"GitHub sigue fallando tras {RETRIES} intentos ({error})")
+        wait = 15 * attempt
+        print(f"Intento {attempt}/{RETRIES} falló ({error}); reintento en {wait}s")
+        time.sleep(wait)
+
+
 def fetch_days() -> list[dict]:
-    resp = requests.get(URL, headers={"User-Agent": "profile-readme-heatmap"}, timeout=30)
-    resp.raise_for_status()
+    resp = get_with_retries()
     soup = BeautifulSoup(resp.text, "html.parser")
     # El número exacto solo aparece en el tooltip asociado a cada celda
     counts = {}
